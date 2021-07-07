@@ -56,8 +56,8 @@ function Sidebar() {
             setInput('')
             setTimeout(() => {
               //refresh all channels
-              useEffect(()=>{
-                const unsubscribe = db.collection('Rooms').onSnapshot(snap=>{
+              
+                db.collection('Rooms').onSnapshot(snap=>{
                    setRooms(snap.docs.map(doc=>(
                      {
                       data:doc.data(),
@@ -65,12 +65,7 @@ function Sidebar() {
                      }
                    )))
                 })
-                return ()=>{
-                  unsubscribe()
-                }
-               
-             },[])
-
+              
               ,alert('Refresh channels')}, 10000)
             console.log(filtereddata)
            }
