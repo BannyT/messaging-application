@@ -98,14 +98,14 @@ const useStyles = makeStyles({
            // function to clear chat messages
            const clearMessages=()=>{
                 if(roomId){
-                // db.collection('Rooms').doc(roomId).collection('Messages').delete();
-                db.collection("Rooms").doc(roomId).collection('Messages').delete().then(() => {
-                  toast.success('Messages Cleared',{position:toast.POSITION.TOP_RIGHT})
-                  setOpen(false)
-              }).catch((error) => {
-                  console.error("Error removing document: ", error);
-              });   
-             }         
+                db.collection('Rooms').doc(roomId).collection('Messages').get().then(function(querySnapshot) {
+                  querySnapshot.forEach(function(doc) {
+                      doc.ref.delete();
+                  });
+              });  
+             } 
+             toast.success('Messages Cleared',{position:toast.POSITION.TOP_RIGHT})
+             setOpen(false)        
            }
 
   return (
