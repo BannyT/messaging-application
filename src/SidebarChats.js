@@ -22,7 +22,7 @@ function SidebarChats({channelname,id}) {
             })
           }
     },[id])
-    console.log(messages)
+    // console.log(messages)
 
   return (
     <Link className="link" to={`/rooms/${id}`}>
