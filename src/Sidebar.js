@@ -54,20 +54,18 @@ function Sidebar() {
             const filtereddata = rooms.filter(res=>res.data.name===inputvalue)
             setRooms(filtereddata);
             setInput('')
-            setTimeout(() => {
-              //refresh all channels
-              
-                db.collection('Rooms').onSnapshot(snap=>{
-                   setRooms(snap.docs.map(doc=>(
-                     {
-                      data:doc.data(),
-                      id:doc.id 
-                     }
-                   )))
-                })
-              
-              ,alert('Refresh channels')}, 10000)
-            console.log(filtereddata)
+           }
+
+           //refresh function
+          const refresh=()=>{
+            db.collection('Rooms').onSnapshot(snap=>{
+              setRooms(snap.docs.map(doc=>(
+                {
+                 data:doc.data(),
+                 id:doc.id 
+                }
+              )))
+           })
            }
 
   return (
@@ -75,8 +73,8 @@ function Sidebar() {
            <div className="sidebar-header">
                <Avatar src={user?.photoURL}/>
                <div className="header-right">
-                  <IconButton>
-                  <DonutLarge/>
+                  <IconButton onClick={refresh}>
+                  < DonutLarge/>
                   </IconButton>
                   <IconButton>
                   <ChatIcon/>
