@@ -49,12 +49,19 @@ function Sidebar() {
           
         },[])
  
-        // function to filter all channels by name
-           const filterChannels=()=>{
-            const filtereddata = rooms.filter(res=>res.data.name===inputvalue)
-            setRooms(filtereddata);
-            setInput('')
-           }
+
+          //function to filter channels by names
+          const filterChannels = (event) => {
+            event.preventDefault()
+            let value = event.target.value.toLowerCase();
+            let result = [];
+            result = rooms.filter((res) => {
+            return res.data.name.toLowerCase().search(value) != -1;
+            });
+            setRooms(result);
+            }
+
+
 
            //refresh function
           const refresh=()=>{
@@ -87,8 +94,8 @@ function Sidebar() {
 
         <div className="sidebar-search">
           <div className="search-container">
-            <SearchIcon onClick={filterChannels}/>
-            <input value={inputvalue} onChange={e=>setInput(e.target.value)} type="text" placeholder="Search or start new chat"/>
+            <SearchIcon/>
+            <input  onChange={filterChannels} type="text" placeholder="Search or start new chat"/>
           </div>   
         </div>
 
